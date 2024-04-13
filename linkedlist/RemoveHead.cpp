@@ -34,44 +34,31 @@ Node* ConvertArr2LL(vector<int> &arr)
     }
     return head;
 }
-int lengthofLL(Node* head)
-{
-    int cnt= 0;
-    Node* temp=head;
-    while(temp)
-    {
-        temp = temp->next;
-        cnt++;
-
-    }
-    return cnt;
-}
-int checkIfpresent(Node* head,int val)
+void print(Node* head)
 {
     Node* temp = head;
-    while(temp){
-        if(temp->data == val)
-        {
-            return 1;
-        }
+    while(temp)
+    {
+        cout<<temp->data;
         temp=temp->next;
-
+    } 
+}
+Node* removesHead(Node* head)
+{
+    if(head == NULL)
+    {
+        return head;
     }
-    return 0;
+    Node* temp = head;
+    head=head->next;
+    delete temp;
+    return head;
 }
 
 int main(){
     vector<int> arr={2,5,8,7};
     Node* head=ConvertArr2LL(arr);
     cout<<head->data;
-    Node* temp =head;
-    while(temp)
-    {
-       cout<<temp->data;
-       temp = temp->next;
-
-    }
-    cout<<endl;
-    cout<<"lenth of linked list"<<lengthofLL(head)<<endl;
-    cout<<"Check a numner is presnt or not :"<<checkIfpresent(head,5)<<endl;
+    head= removesHead(head);
+    print(head);
 }
