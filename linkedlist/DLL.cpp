@@ -183,19 +183,73 @@ void insertBeforeNode(Node* node,int val){
     node->back = newNode;
     
 }
+Node* reverseDLL(Node* head)
+{   
+    // Write your code here
+    if (head == NULL || head->next == NULL) {
+      return head;  
+    }
+    Node* last = NULL;
+    Node* current=head;
+    while (current != NULL) {
+        last=current->back;
+        current->back = current->next;
+        current->next=last;
+        current=current->back;
+    }
+   // return current->next;
+   return last->back;
+}
+Node *addTwoNumbers(Node *num1, Node *num2)
+{
+    // Write your code here.
+    Node* t1= num1;
+    Node* t2 = num2;
+    Node* dummyNode =  new Node(-1);
+    Node* current = dummyNode;
+    int carry=0;
+    while (t1 != NULL || t2 != NULL){
+          int sum = carry;
+          if (t1) {
+               sum = sum + t1->data;
+          }
+          if (t2) {
+               sum = sum + t2->data;
+          }
+          Node* newNode = new Node(sum%10);
+          carry = sum/10;
+          current->next = newNode;
+          current = current->next;
+          if (t1) {
+             t1=t1->next;
+          }
+          if (t2) {
+            t2= t2->next;
+          }
+    }
+    if (carry) {
+        Node* newNode = new Node(carry);
+        current->next = newNode;
+    }
+    return dummyNode->next;
+}
 int main()
 {
     vector<int> arr={12,5,8,7};
+    vector<int> arr1={12,5,8,7};
     Node* head= converARR2DLL(arr);
-    print(head);
+    Node* head1= converARR2DLL(arr1);
+    head= addTwoNumbers(head,head1);
+    //print(head);
     //head=deleteHead(head);
     // head=deletetail(head);
     //head=deletekthelement(head,5);
     //deleteNode(head->next->next);
     //head = insertBeforeHead(head,10);
-    //head = insertBeforeTail(head,10);
+   // head = insertBeforeTail(head,10);
     // head = insertbeforeKthElement(head,2,10);
-    insertBeforeNode(head->next,100);
+    //insertBeforeNode(head->next,100);
+    //head=reverseDLL(head);
     print(head);
     return 0;
 }
